@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.programa-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.programa-image img {
+    height: 240px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.programa-details {
+    margin-left: 20px;
+    text-align: left;
+}
+
+h2 {
+    font-size: 20px;
+    color: #333;
+}
+
+p {
+    font-size: 16px;
+    color: #666;
+    margin: 8px 0;
+}
+
+/* Efectos de transición al pasar el mouse sobre la imagen */
+.programa-image img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s;
+}
+

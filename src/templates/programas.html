@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesIndex.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesProgramas.css') }}">
+    <title>Programas</title>
+</head>
+<div class="header-index">
+    <img src="static/images/logo.png" alt="Logo de la universidad" class="logo-index">
+    <h2>Universidad de Cundinamarca</h2>
+    <ul class="nav-index">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/general">Programas académicos</a></li>
+        <li><a href="/admin" data-toggle="modal" data-target="#adminModal">Soy Admin</a></li>
+
+    </ul>
+</div>
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+
+    {% endif %}
+    {% endwith %}
+    <div class="container">
+        <h1>Programas Académicos</h1>
+        <div class="programas-list">
+            {% for programa in programas %}
+            <div class="programa">
+                
+                <div class="programa-image">
+                    <img src="{{ programa[8] }}" alt="{{ programa[1] }}">
+                </div>
+                <div class="programa-info">
+                    <h2><a href="{{ url_for('vista_individual', programa_id=programa[0]) }}">{{ programa[1] }}</a></h2>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="footer-index">
+        <p>© Universidad de Cundinamarca 2023. Todos los derechos reservados.</p>
+        <p>Información de contacto:</p>
+        <p>Teléfono: +57 (1) 234-5678</p>
+        <p>Email: info@universidadCundinamarca.edu.co</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+{% extends '/layout.html' %}
+
+{% block titulo %}
+Udec
+{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/stylesIndex.css')}}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}
+
+{% block body %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<div class="header-index">
+    <img src="static/images/logo.png" alt="Logo de la universidad" class="logo-index">
+    <h2>Universidad de Cundinamarca</h2>
+    <ul class="nav-index">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/general">Programas académicos</a></li>
+        <li><a href="/admin" data-toggle="modal" data-target="#adminModal">Soy Admin</a></li>
+
+    </ul>
+</div>
+<div class="main-index">
+    <div class="welcome-container">
+        <h1>Bienvenido a la Universidad de Cundinamarca</h1>
+    </div>
+    <div class="mission-container">
+        <h3 data-emoji="🥇">Misión</h3>
+        <p>Nuestra misión es contribuir al progreso científico, tecnológico, cultural y social del país, mediante la
+            generación y difusión del conocimiento, la innovación, la investigación y la extensión.</p>
+    </div>
+    <div class="vision-container">
+        <h3 data-emoji="🎯">Visión</h3>
+        <p>Nuestra visión es ser una universidad líder en el ámbito nacional e internacional, reconocida por su
+            excelencia académica, su impacto social y su responsabilidad ambiental.</p>
+    </div>
+</div>
+
+<div class="image-carousel">
+    <div class="image">
+        <img src="static/images/campus1.jpg" alt="Foto del campus universitario">
+    </div>
+    <div class="image">
+        <img src="static/images/campus2.jpg" alt="Foto del campus universitario">
+    </div>
+    <div class="image">
+        <img src="static/images/campus3.jpg" alt="Foto del campus universitario">
+    </div>
+    <div class="image">
+        <img src="static/images/campus4.jpg" alt="Foto del campus universitario">
+    </div>
+    <div class="image">
+        <img src="static/images/campus5.jpg" alt="Foto del campus universitario">
+    </div>
+
+</div>
+<div class="carousel-navigation">
+    <button class="prev-button">Anterior</button>
+    <button class="next-button">Siguiente</button>
+</div>
+<script>
+
+    $(document).ready(function () {
+        var currentIndex = 0;
+        var images = $(".image-carousel .image");
+        var totalImages = images.length;
+
+        function showImage(index) {
+            images.hide();
+            images.eq(index).fadeIn(500);
+        }
+
+        showImage(currentIndex);
+
+        $(".next-button").on("click", function () {
+            currentIndex = (currentIndex + 1) % totalImages;
+            showImage(currentIndex);
+        });
+
+        $(".prev-button").on("click", function () {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            showImage(currentIndex);
+        });
+    });
+
+
+</script>
+<div class="footer-index">
+    <p>© Universidad de Cundinamarca 2023. Todos los derechos reservados.</p>
+    <p>Información de contacto:</p>
+    <p>Teléfono: +57 (1) 234-5678</p>
+    <p>Email: info@universidadCundinamarca.edu.co</p>
+</div>
+
+
+<!-- Modal de inicio de sesión para "Soy Admin" -->
+<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel"
+    aria-hidden="true">
+    <div class="container">
+        <div class="form-signin text-center mx-auto w-25 pt-5"
+            style="background: linear-gradient(45deg, #c5dbab, #ffffff); border-radius: 15px;">
+            <form action="/admin" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="form-group text-center">
+                    <label for="email" style="color: #05521e; font-weight: bold;">Email</label>
+                    <input type="email" name="email" class="form-control rounded mx-auto" style="width: 80%;">
+                </div>
+                <div class="form-group text-center">
+                    <label for="Password" style="color: #05521e; font-weight: bold;">Contraseña</label>
+                    <input type="password" name="password" class="form-control rounded mx-auto" style="width: 80%;">
+                </div>
+                <div class="modal-footer">
+                    <a href="/" class="btn btn-secondary">Cerrar</a>
+                    <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
